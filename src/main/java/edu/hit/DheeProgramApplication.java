@@ -7,7 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class DheeProgramApplication {
 
     public static void main(String[] args) {
-        wr是我爹
+
         SpringApplication.run(DheeProgramApplication.class, args);
     }
 
