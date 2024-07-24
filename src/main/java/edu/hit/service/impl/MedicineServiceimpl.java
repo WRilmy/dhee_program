@@ -27,4 +27,20 @@ public class MedicineServiceimpl implements MedicineService {
         //3. 封装PageBean对象,并返回
         return new PageBean(c.getTotal(), c.getResult());
     }
+
+    @Override
+    public void delete(Integer id) {
+        medicineMapper.delete(id);
+    }
+
+    @Override
+    public void add(Medicine medicine) {
+
+        medicineMapper.add(medicine);
+    }
+
+    @Override
+    public void update(Medicine medicine) {
+        medicineMapper.update(medicine);
+    }
 }
