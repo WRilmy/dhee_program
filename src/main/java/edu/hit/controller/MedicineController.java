@@ -33,4 +33,6 @@ public class MedicineController {
             log.info("分页查询，参数:{},{},{},{},{}", page, pageSize,name,begin,end);
             pageBean = medicineService.page(page, pageSize, name, begin, end);
         }
+        return Result.success(pageBean);
+    }
 }
