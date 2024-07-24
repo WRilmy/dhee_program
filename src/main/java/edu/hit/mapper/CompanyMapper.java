@@ -1,4 +1,4 @@
 package edu.hit.mapper;
 
-public class CompanyMapper {
+public interface CompanyMapper {
 }

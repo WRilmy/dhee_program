@@ -1,4 +1,4 @@
 package edu.hit.service;
 
-public class PeopleService {
+public interface PeopleService {
 }
