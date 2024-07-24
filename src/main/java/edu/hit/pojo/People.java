@@ -1,7 +1,7 @@
 package edu.hit.pojo;
 
 /*
-个人实体类
+人员实体类
 
 */
 
