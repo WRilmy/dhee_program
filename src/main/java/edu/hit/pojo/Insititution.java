@@ -6,21 +6,22 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
-
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class Insititution {
     @TableId(value = "id", type = IdType.AUTO)
-    private Integer diaId;
-    private String diaName;
-    private Integer diaExpType;
-    private Integer diaExpLevel;
-    private Integer diaMaxPrize;
-    private LocalDateTime diaStarttime;
-    private LocalDateTime diaEndtime;
-    private Integer diaValid;
-    private Integer diaHosLevel;
-    private Integer diaApprovalmark;
+    private Integer id;
+    private String insId;
+    private String insName;
+    private Integer hosLevel;
+    private Integer hosType;
+    private Integer postcode;
+    private String bossName;
+    private String bossPhonenumber;
+    private String peopleName;
+    private String peoplePhonenumber;
+    private String peopleMobilephone;
+    private String address;
+    private String notes;
 }
