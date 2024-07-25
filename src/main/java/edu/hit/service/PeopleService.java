@@ -1,4 +1,7 @@
 package edu.hit.service;
 
-public interface PeopleService {
+import com.baomidou.mybatisplus.extension.service.IService;
+import edu.hit.pojo.People;
+
+public interface PeopleService extends IService<People> {
 }
