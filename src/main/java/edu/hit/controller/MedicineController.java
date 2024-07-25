@@ -1,15 +1,14 @@
 package edu.hit.controller;
 
-import edu.hit.mapper.MedicineMapper;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import edu.hit.pojo.PageBean;
 import edu.hit.service.MedicineService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import edu.hit.pojo.Result;
+import edu.hit.common.Result;
 import edu.hit.pojo.Medicine;
-import java.time.LocalDate;
 
 @RestController
 @Slf4j
@@ -20,34 +19,30 @@ public class MedicineController {
     @GetMapping
     public Result page(@RequestParam(defaultValue = "1") Integer page,
                        @RequestParam(defaultValue = "10") Integer pageSize,
-                       String name,
-                       String finishTime) {
-        PageBean pageBean = medicineService.page(page, pageSize, name, null, null);
-        if (finishTime != null && !finishTime.equals("undefined")) {
-            String[] dates = finishTime.split(",");
-            LocalDate begin = LocalDate.parse(dates[0]);
-            LocalDate end = LocalDate.parse(dates[1]);
-            log.info("分页查询，参数:{},{},{},{},{}", page, pageSize,name,begin,end);
-            pageBean = medicineService.page(page, pageSize, name, begin, end);
-        }
+                       String name) {
+        LambdaQueryWrapper<Medicine> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.like(!name.isEmpty(), Medicine::getMedName, name);
+        Page<Medicine> pageInfo = new Page<>(page, pageSize);
+        Page<Medicine> result = medicineService.page(pageInfo, queryWrapper);
+        PageBean pageBean = new PageBean(result.getTotal(), result.getRecords());
         return Result.success(pageBean);
     }
     @DeleteMapping("/{id}")
     public Result delete(@PathVariable Integer id) {
         log.info("根据id删除药品:{} ", id);
-        medicineService.delete(id);
+        medicineService.removeById(id);
         return Result.success();
     }
     @PostMapping
     public Result add(@RequestBody Medicine medicine) {
         log.info("新增药品：{}", medicine);
-        medicineService.add(medicine);
+        medicineService.save(medicine);
         return Result.success();
     }
     @PutMapping
     public Result update(@RequestBody Medicine medicine){
         log.info("更新药品");
-        medicineService.update(medicine);
+        medicineService.updateById(medicine);
         return Result.success();
     }
 }

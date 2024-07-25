@@ -1,4 +1,4 @@
-package edu.hit.pojo;
+package edu.hit.common;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
