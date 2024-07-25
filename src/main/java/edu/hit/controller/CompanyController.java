@@ -17,13 +17,13 @@ public class CompanyController {
     private CompanyService companyService;
     @DeleteMapping("/{company_id}")
     public Result delete(@PathVariable Integer company_id) {
-        log.info("根据id删除部门:{} ", company_id);
+        log.info("根据id删除公司:{} ", company_id);
         companyService.delete(company_id);
         return Result.success();
     }
     @GetMapping("/{company_id}")
     public Result selectById(@PathVariable Integer company_id){
-            log.info("根据查询部门:{} ", company_id);
+            log.info("根据查询公司:{} ", company_id);
         Company company=companyService.selectById(company_id);
         return Result.success(company);
     }
@@ -34,7 +34,7 @@ public class CompanyController {
     }
     @PostMapping
     public Result update(@RequestBody Company company){
-        log.info("修改部门");
+        log.info("修改公司");
         companyService.update(company);
         return Result.success();
     }
