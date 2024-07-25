@@ -12,8 +12,9 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Facilities {
-    @TableId(value = "ser_id", type = IdType.AUTO)
-    private Integer serId;
+    @TableId(value = "id", type = IdType.AUTO)
+    private Integer id;
+    private String serId;
     private String serName;
     private Integer serExpType;
     private LocalDate serStarttime;

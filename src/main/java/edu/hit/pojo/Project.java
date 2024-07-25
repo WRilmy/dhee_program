@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Project {
-    @TableId(value = "id", type = IdType.AUTO)
+    @TableId(value = "d_id", type = IdType.AUTO)
     private Integer dId;
     private String diaId;
     private String diaName;
