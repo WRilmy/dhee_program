@@ -1,12 +1,17 @@
 package edu.hit.controller;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import edu.hit.common.Result;
 import edu.hit.pojo.Medicine;
+import edu.hit.pojo.PageBean;
 import edu.hit.service.MedicineService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
+
 
 @RestController
 @Slf4j
@@ -14,23 +19,23 @@ import java.util.List;
 public class MedicineController {
     @Autowired
     private MedicineService medicineService;
-//    @GetMapping
-//    public Result page(@RequestParam(defaultValue = "1") Integer page,
-//                       @RequestParam(defaultValue = "10") Integer pageSize,
-//                       String name) {
-//        LambdaQueryWrapper<Medicine> queryWrapper = new LambdaQueryWrapper<>();
-//        queryWrapper.like(!name.isEmpty(), Medicine::getMedName, name);
-//        Page<Medicine> pageInfo = new Page<>(page, pageSize);
-//        Page<Medicine> result = medicineService.page(pageInfo, queryWrapper);
-//        PageBean pageBean = new PageBean(result.getTotal(), result.getRecords());
-//        return Result.success(pageBean);
-//    }
     @GetMapping
-    public Result list(){
-        log.info("查询药品");
-        List<Medicine> medicines = medicineService.list();
-        return Result.success(medicines);
+    public Result page(@RequestParam(defaultValue = "1") Integer page,
+                       @RequestParam(defaultValue = "10") Integer pageSize,
+                       String name) {
+        LambdaQueryWrapper<Medicine> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.like(name != null, Medicine::getMedName, name);
+        Page<Medicine> pageInfo = new Page<>(page, pageSize);
+        Page<Medicine> result = medicineService.page(pageInfo, queryWrapper);
+        PageBean pageBean = new PageBean(result.getTotal(), result.getRecords());
+        return Result.success(pageBean);
     }
+//    @GetMapping
+//    public Result list(){
+//    log.info("查询自费比例");
+//    List<Medicine> medicines = medicineService.list();
+//    return Result.success(medicines);
+//    }
     @DeleteMapping("/{id}")
     public Result deleteById(@PathVariable Integer id) {
         log.info("根据id删除药品:{} ", id);

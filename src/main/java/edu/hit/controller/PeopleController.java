@@ -1,8 +1,11 @@
 package edu.hit.controller;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import edu.hit.common.Result;
+import edu.hit.pojo.Medicine;
+import edu.hit.pojo.PageBean;
 import edu.hit.pojo.People;
-import edu.hit.pojo.Ratio;
 import edu.hit.service.PeopleService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,11 +19,22 @@ import java.util.List;
 public class PeopleController {
     @Autowired
     private PeopleService peopleService;
+//    @GetMapping
+//    public Result list(){
+//        log.info("查询人员");
+//        List<People> peoples = peopleService.list();
+//        return Result.success(peoples);
+//    }
     @GetMapping
-    public Result list(){
-        log.info("查询人员");
-        List<People> peoples = peopleService.list();
-        return Result.success(peoples);
+    public Result page(@RequestParam(defaultValue = "1") Integer page,
+                       @RequestParam(defaultValue = "10") Integer pageSize,
+                        String name) {
+        LambdaQueryWrapper<People> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.like(name != null, People::getName, name);
+        Page<People> pageInfo = new Page<>(page, pageSize);
+        Page<People> result = peopleService.page(pageInfo, queryWrapper);
+        PageBean pageBean = new PageBean(result.getTotal(), result.getRecords());
+        return Result.success(pageBean);
     }
     @DeleteMapping("/{id}")
     public Result deleteById(@PathVariable Integer id) {
