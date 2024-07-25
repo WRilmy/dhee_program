@@ -1,15 +1,11 @@
 package edu.hit.controller;
 
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import edu.hit.pojo.PageBean;
+import edu.hit.common.Result;
+import edu.hit.pojo.Medicine;
 import edu.hit.service.MedicineService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import edu.hit.common.Result;
-import edu.hit.pojo.Medicine;
-
 import java.util.List;
 
 @RestController
