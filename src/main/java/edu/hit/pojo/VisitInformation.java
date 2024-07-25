@@ -18,7 +18,7 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @NoArgsConstructor
 public class VisitInformation {
-    @TableId(value = "id", type = IdType.AUTO)
+    @TableId(value = "t_id", type = IdType.AUTO)
     private Integer tId;
     private int personId;
     private int hospitalizationNumber;

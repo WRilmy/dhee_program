@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Medicine {
-    @TableId(value = "id", type = IdType.AUTO)
+    @TableId(value = "m_id", type = IdType.AUTO)
     private Integer mId;
     private String medId;
     private String medName;

@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Prescription {
-    @TableId(value = "id", type = IdType.AUTO)
+    @TableId(value = "t_id", type = IdType.AUTO)
     private Integer tId;
     private int hospitalizationNumber;
     private int chargeableItemsCategory;

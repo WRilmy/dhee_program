@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Company {
-    @TableId(value = "id", type = IdType.AUTO)
+    @TableId(value = "company_id", type = IdType.AUTO)
     private Integer companyId;
     private String companyName;//单位名称
     private int companyType;//单位类型

@@ -15,7 +15,7 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @NoArgsConstructor
 public class People {
-    @TableId(value = "id")
+    @TableId(value = "people_id")
     private Integer peopleId;
     private short idType;
     private String id;

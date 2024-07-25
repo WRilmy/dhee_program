@@ -1,4 +1,7 @@
 package edu.hit.service;
 
-public interface FacilitiesService {
+import com.baomidou.mybatisplus.extension.service.IService;
+import edu.hit.pojo.Facilities;
+
+public interface FacilitiesService extends IService<Facilities> {
 }

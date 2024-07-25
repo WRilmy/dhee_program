@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Disease {
-    @TableId(value = "id", type = IdType.AUTO)
+    @TableId(value = "disease_id", type = IdType.AUTO)
     private Integer diseaseId;
     private String diseaseName;
     private Integer diseaseType;

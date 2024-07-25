@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Standard {
-    @TableId(value = "id", type = IdType.AUTO)
+    @TableId(value = "t_id", type = IdType.AUTO)
     private Integer tId;
     private Integer medicalCategory;
     private Integer medicalPersonnelCategory;
