@@ -23,7 +23,7 @@ public class CompanyController {
     }
     @GetMapping("/{company_id}")
     public Result selectById(@PathVariable Integer company_id){
-            log.info("根据查询公司:{} ", company_id);
+            log.info("根据id查询公司:{} ", company_id);
         Company company=companyService.selectById(company_id);
         return Result.success(company);
     }
