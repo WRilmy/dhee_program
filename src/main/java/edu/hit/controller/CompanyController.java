@@ -3,7 +3,7 @@ package edu.hit.controller;
 
 
 import edu.hit.pojo.Company;
-import edu.hit.pojo.Result;
+import edu.hit.common.Result;
 import edu.hit.service.CompanyService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
