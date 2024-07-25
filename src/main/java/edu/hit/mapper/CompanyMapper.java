@@ -5,6 +5,8 @@ import org.apache.ibatis.annotations.*;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Mapper;
 
+import java.util.List;
+
 @Mapper
 public interface CompanyMapper {
 
@@ -31,5 +33,7 @@ public interface CompanyMapper {
     */
     @Update("update medicare.company set company_name=#{companyName} where company_id=#{companyId}")
     void update(Company company);
+
+    List<Company> list(String company_name);
 
 }

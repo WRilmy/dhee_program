@@ -3,11 +3,14 @@ package edu.hit.controller;
 
 
 import edu.hit.pojo.Company;
-import edu.hit.pojo.Result;
+import edu.hit.pojo.PageBean;
+import edu.hit.common.Result;
 import edu.hit.service.CompanyService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+
 
 @RestController
 @Slf4j
@@ -38,5 +41,23 @@ public class CompanyController {
         companyService.update(company);
         return Result.success();
     }
+
+
+    @GetMapping
+    public Result page(@RequestParam(defaultValue = "1") Integer page,
+                       @RequestParam(defaultValue = "10") Integer pageSize,
+                       String company_name) {
+        PageBean pageBean;
+
+            log.info("分页查询，参数:{},{},{}", page, pageSize,company_name);
+            pageBean = companyService.page(page, pageSize, company_name);
+
+
+        //调用service分页查询
+
+        return Result.success(pageBean);
+    }
+
+
 
 }
