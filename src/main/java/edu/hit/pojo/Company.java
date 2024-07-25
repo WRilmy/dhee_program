@@ -16,11 +16,11 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class Company {
     @TableId(value = "id", type = IdType.AUTO)
-    private Integer company_id;
-    private String company_name;//单位名称
-    private int company_type;//单位类型
+    private Integer companyId;
+    private String companyName;//单位名称
+    private int companyType;//单位类型
     private String address;//地址
     private int postcode;//邮编
-    private int phone_number;//电话号码
+    private int phoneNumber;//电话号码
 
 }

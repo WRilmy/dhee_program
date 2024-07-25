@@ -16,8 +16,8 @@ public class CompanyController {
 
 //根据id删除
     @DeleteMapping("/company_id")
-    public Result deleteById(@PathVariable Integer company_id){
-        companyService.removeById(company_id);
+    public Result deleteById(@PathVariable Integer companyId){
+        companyService.removeById(companyId);
         return Result.success();
     }
     //查询
