@@ -1,5 +1,7 @@
 package edu.hit.pojo;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -13,6 +15,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Company {
+    @TableId(value = "id", type = IdType.AUTO)
     private Integer company_id;
     private String company_name;//单位名称
     private int company_type;//单位类型

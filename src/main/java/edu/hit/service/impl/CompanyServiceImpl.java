@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class CompanyServiceimpl implements CompanyService {
+public class CompanyServiceImpl implements CompanyService {
     @Autowired
     private CompanyMapper companyMapper;
 
