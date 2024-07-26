@@ -5,7 +5,6 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import edu.hit.common.Result;
 import edu.hit.pojo.PageBean;
-import edu.hit.pojo.People;
 import edu.hit.pojo.VisitInformation;
 import edu.hit.service.VisitInformationService;
 import lombok.extern.slf4j.Slf4j;
@@ -15,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @Slf4j
-@RequestMapping("/Baoxiao")
+@RequestMapping("/CancelBaoxiao")
 public class CancelBaoxiaoController {
     @Autowired
     private VisitInformationService visitInformationService;
