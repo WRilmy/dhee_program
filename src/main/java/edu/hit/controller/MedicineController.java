@@ -29,6 +29,7 @@ public class MedicineController {
         Page<Medicine> pageInfo = new Page<>(page, pageSize);
         Page<Medicine> result = medicineService.page(pageInfo, queryWrapper);
         PageBean pageBean = new PageBean(result.getTotal(), result.getRecords());
+        log.info("查询药品");
         return Result.success(pageBean);
     }
 //    @GetMapping
