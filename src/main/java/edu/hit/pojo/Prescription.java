@@ -20,7 +20,7 @@ public class Prescription {
     private int hospitalizationNumber;
     private int chargeableItemsCategory;
     private int projectCodeing;
-    private int projectName;
+    private String projectName;
     private int  unitPrice;
     private int quantity;
     private int  amount;
