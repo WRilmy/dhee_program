@@ -1,6 +1,9 @@
 package edu.hit.controller;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import edu.hit.common.Result;
+import edu.hit.pojo.PageBean;
 import edu.hit.pojo.Ratio;
 import edu.hit.pojo.Standard;
 import edu.hit.service.RatioService;
@@ -17,10 +20,16 @@ public class RatioController {
     @Autowired
     private RatioService ratioService;
     @GetMapping
-    public Result list(){
-        log.info("查询自费比例");
-        List<Ratio> ratios = ratioService.list();
-        return Result.success(ratios);
+    public Result page(@RequestParam(defaultValue = "1") Integer page,
+                       @RequestParam(defaultValue = "10") Integer pageSize,
+                       String name, String id) {
+        LambdaQueryWrapper<Ratio> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.like(name != null, Ratio::getReimbursementProportion, name);
+        queryWrapper.like(id != null, Ratio::getTId, id);
+        Page<Ratio> pageInfo = new Page<>(page, pageSize);
+        Page<Ratio> result = ratioService.page(pageInfo, queryWrapper);
+        PageBean pageBean = new PageBean(result.getTotal(), result.getRecords());
+        return Result.success(pageBean);
     }
     @DeleteMapping("/{id}")
     public Result deleteById(@PathVariable Integer id) {

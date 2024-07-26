@@ -1,9 +1,13 @@
 package edu.hit.controller;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import edu.hit.common.Result;
 import edu.hit.mapper.DiseaseMapper;
 import edu.hit.pojo.Disease;
+import edu.hit.pojo.Insititution;
 import edu.hit.pojo.Medicine;
+import edu.hit.pojo.PageBean;
 import edu.hit.service.DiseaseService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,10 +22,16 @@ public class DiseaseController {
     @Autowired
     private DiseaseService diseaseService;
     @GetMapping
-    public Result list(){
-        log.info("查询病种");
-        List<Disease> diseases = diseaseService.list();
-        return Result.success(diseases);
+    public Result page(@RequestParam(defaultValue = "1") Integer page,
+                       @RequestParam(defaultValue = "10") Integer pageSize,
+                       String name, String id) {
+        LambdaQueryWrapper<Disease> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.like(name != null, Disease::getDiseaseName, name);
+        queryWrapper.like(id != null, Disease::getDiseaseId, id);
+        Page<Disease> pageInfo = new Page<>(page, pageSize);
+        Page<Disease> result = diseaseService.page(pageInfo, queryWrapper);
+        PageBean pageBean = new PageBean(result.getTotal(), result.getRecords());
+        return Result.success(pageBean);
     }
     @DeleteMapping("/{id}")
     public Result deleteById(@PathVariable Integer id) {

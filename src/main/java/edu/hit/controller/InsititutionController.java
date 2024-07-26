@@ -1,8 +1,12 @@
 package edu.hit.controller;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import edu.hit.common.Result;
+import edu.hit.pojo.Facilities;
 import edu.hit.pojo.Insititution;
 import edu.hit.pojo.Medicine;
+import edu.hit.pojo.PageBean;
 import edu.hit.service.InsititutionService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,10 +22,16 @@ public class InsititutionController {
     private InsititutionService insititutionService;
 
     @GetMapping
-    public Result list() {
-        log.info("查询定点医疗机构");
-        List<Insititution> insititutions = insititutionService.list();
-        return Result.success(insititutions);
+    public Result page(@RequestParam(defaultValue = "1") Integer page,
+                       @RequestParam(defaultValue = "10") Integer pageSize,
+                       String name, String id) {
+        LambdaQueryWrapper<Insititution> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.like(name != null, Insititution::getInsName, name);
+        queryWrapper.like(id != null, Insititution::getInsId, id);
+        Page<Insititution> pageInfo = new Page<>(page, pageSize);
+        Page<Insititution> result = insititutionService.page(pageInfo, queryWrapper);
+        PageBean pageBean = new PageBean(result.getTotal(), result.getRecords());
+        return Result.success(pageBean);
     }
 
     @DeleteMapping("/{id}")

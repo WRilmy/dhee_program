@@ -22,9 +22,10 @@ public class MedicineController {
     @GetMapping
     public Result page(@RequestParam(defaultValue = "1") Integer page,
                        @RequestParam(defaultValue = "10") Integer pageSize,
-                       String name) {
+                       String name, String id) {
         LambdaQueryWrapper<Medicine> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper.like(name != null, Medicine::getMedName, name);
+        queryWrapper.like(id != null, Medicine::getMedId, id);
         Page<Medicine> pageInfo = new Page<>(page, pageSize);
         Page<Medicine> result = medicineService.page(pageInfo, queryWrapper);
         PageBean pageBean = new PageBean(result.getTotal(), result.getRecords());

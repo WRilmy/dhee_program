@@ -1,6 +1,10 @@
 package edu.hit.controller;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import edu.hit.common.Result;
+import edu.hit.pojo.Medicine;
+import edu.hit.pojo.PageBean;
 import edu.hit.pojo.Project;
 import edu.hit.service.ProjectService;
 import lombok.extern.slf4j.Slf4j;
@@ -16,14 +20,20 @@ public class ProjectController {
     @Autowired
     private ProjectService projectService;
     @GetMapping
-    public Result list(){
-        log.info("查询自费比例");
-        List<Project> projects = projectService.list();
-        return Result.success(projects);
+    public Result page(@RequestParam(defaultValue = "1") Integer page,
+                       @RequestParam(defaultValue = "10") Integer pageSize,
+                       String name, String id) {
+        LambdaQueryWrapper<Project> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.like(name != null, Project::getDiaName, name);
+        queryWrapper.like(id != null, Project::getDiaId, id);
+        Page<Project> pageInfo = new Page<>(page, pageSize);
+        Page<Project> result = projectService.page(pageInfo, queryWrapper);
+        PageBean pageBean = new PageBean(result.getTotal(), result.getRecords());
+        return Result.success(pageBean);
     }
     @DeleteMapping("/{id}")
     public Result deleteById(@PathVariable Integer id) {
-        log.info("根据id删除自费比例:{} ", id);
+        log.info("根据id删除项目:{} ", id);
         projectService.removeById(id);
         return Result.success();
     }

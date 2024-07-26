@@ -1,6 +1,10 @@
 package edu.hit.controller;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import edu.hit.common.Result;
 import edu.hit.pojo.Company;
+import edu.hit.pojo.PageBean;
+import edu.hit.pojo.Ratio;
 import edu.hit.service.CompanyService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,8 +26,16 @@ public class CompanyController {
     }
     //查询
     @GetMapping
-    public Result list(){
-        return Result.success(companyService.list());
+    public Result page(@RequestParam(defaultValue = "1") Integer page,
+                       @RequestParam(defaultValue = "10") Integer pageSize,
+                       String name, String id) {
+        LambdaQueryWrapper<Company> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.like(name != null, Company::getCompanyName, name);
+        queryWrapper.like(id != null, Company::getCompanyId, id);
+        Page<Company> pageInfo = new Page<>(page, pageSize);
+        Page<Company> result = companyService.page(pageInfo, queryWrapper);
+        PageBean pageBean = new PageBean(result.getTotal(), result.getRecords());
+        return Result.success(pageBean);
     }
     @PostMapping
     public Result add(@RequestBody Company company){

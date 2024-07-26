@@ -3,6 +3,7 @@ package edu.hit.controller;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import edu.hit.common.Result;
+import edu.hit.pojo.Company;
 import edu.hit.pojo.Medicine;
 import edu.hit.pojo.PageBean;
 import edu.hit.pojo.People;
@@ -25,17 +26,18 @@ public class PeopleController {
 //        List<People> peoples = peopleService.list();
 //        return Result.success(peoples);
 //    }
-    @GetMapping
-    public Result page(@RequestParam(defaultValue = "1") Integer page,
-                       @RequestParam(defaultValue = "10") Integer pageSize,
-                        String name) {
-        LambdaQueryWrapper<People> queryWrapper = new LambdaQueryWrapper<>();
-        queryWrapper.like(name != null, People::getName, name);
-        Page<People> pageInfo = new Page<>(page, pageSize);
-        Page<People> result = peopleService.page(pageInfo, queryWrapper);
-        PageBean pageBean = new PageBean(result.getTotal(), result.getRecords());
-        return Result.success(pageBean);
-    }
+@GetMapping
+public Result page(@RequestParam(defaultValue = "1") Integer page,
+                   @RequestParam(defaultValue = "10") Integer pageSize,
+                   String name, String id) {
+    LambdaQueryWrapper<People> queryWrapper = new LambdaQueryWrapper<>();
+    queryWrapper.like(name != null, People::getName, name);
+    queryWrapper.like(id != null, People::getId, id);
+    Page<People> pageInfo = new Page<>(page, pageSize);
+    Page<People> result = peopleService.page(pageInfo, queryWrapper);
+    PageBean pageBean = new PageBean(result.getTotal(), result.getRecords());
+    return Result.success(pageBean);
+}
     @DeleteMapping("/{id}")
     public Result deleteById(@PathVariable Integer id) {
         log.info("根据id删除人员:{} ", id);
