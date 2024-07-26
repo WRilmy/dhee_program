@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import edu.hit.common.Result;
 import edu.hit.pojo.Facilities;
+import edu.hit.pojo.Medicine;
 import edu.hit.pojo.PageBean;
 import edu.hit.pojo.Project;
 import edu.hit.service.FacilitiesService;
@@ -15,7 +16,7 @@ import java.util.List;
 
 @RestController
 @Slf4j
-@RequestMapping("/facilities")
+@RequestMapping("/facility")
 public class FacilitiesController {
     @Autowired
     private FacilitiesService facilitiesService;
@@ -29,8 +30,20 @@ public class FacilitiesController {
         Page<Facilities> pageInfo = new Page<>(page, pageSize);
         Page<Facilities> result = facilitiesService.page(pageInfo, queryWrapper);
         PageBean pageBean = new PageBean(result.getTotal(), result.getRecords());
+        log.info("查询设施");
         return Result.success(pageBean);
     }
+
+
+    @GetMapping("/{id}")
+    public Result selectById(@PathVariable Integer id){
+
+        return Result.success(facilitiesService.getById(id));
+
+    }
+
+
+
     @DeleteMapping("/{id}")
     public Result deleteById(@PathVariable Integer id) {
         log.info("根据id删除自费比例:{} ", id);

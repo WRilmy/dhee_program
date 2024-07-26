@@ -29,8 +29,17 @@ public class ProjectController {
         Page<Project> pageInfo = new Page<>(page, pageSize);
         Page<Project> result = projectService.page(pageInfo, queryWrapper);
         PageBean pageBean = new PageBean(result.getTotal(), result.getRecords());
+        log.info("查询项目");
         return Result.success(pageBean);
     }
+
+
+    @GetMapping("/{id}")
+    public Result selectById(@PathVariable Integer id){
+        return Result.success(projectService.getById(id));
+    }
+
+
     @DeleteMapping("/{id}")
     public Result deleteById(@PathVariable Integer id) {
         log.info("根据id删除项目:{} ", id);

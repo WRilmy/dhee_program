@@ -33,6 +33,17 @@ public class DiseaseController {
         PageBean pageBean = new PageBean(result.getTotal(), result.getRecords());
         return Result.success(pageBean);
     }
+
+    @GetMapping("/{id}")
+    public Result selectById(@PathVariable Integer id){
+
+        return Result.success(diseaseService.getById(id));
+
+    }
+
+
+
+
     @DeleteMapping("/{id}")
     public Result deleteById(@PathVariable Integer id) {
         log.info("根据id删除病种:{} ", id);

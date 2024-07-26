@@ -15,13 +15,13 @@ import java.util.List;
 
 @RestController
 @Slf4j
-@RequestMapping("/medicine")
+@RequestMapping("/classes")
 public class MedicineController {
     @Autowired
     private MedicineService medicineService;
     @GetMapping
-    public Result page(@RequestParam(defaultValue = "1") Integer page,
-                       @RequestParam(defaultValue = "10") Integer pageSize,
+    public Result page(@RequestParam Integer page,
+                       @RequestParam Integer pageSize,
                        String name, String id) {
         LambdaQueryWrapper<Medicine> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper.like(name != null, Medicine::getMedName, name);
@@ -33,10 +33,19 @@ public class MedicineController {
     }
 //    @GetMapping
 //    public Result list(){
-//    log.info("查询自费比例");
+//    log.info("查询药品");
 //    List<Medicine> medicines = medicineService.list();
 //    return Result.success(medicines);
 //    }
+
+    @GetMapping("/{id}")
+    public Result selectById(@PathVariable Integer id){
+        Medicine medicine=medicineService.getById(id);
+        return Result.success(medicine);
+
+    }
+
+
     @DeleteMapping("/{id}")
     public Result deleteById(@PathVariable Integer id) {
         log.info("根据id删除药品:{} ", id);
