@@ -21,8 +21,8 @@ public class StandardController {
     @Autowired
     private StandardService standardService;
     @GetMapping
-    public Result page(@RequestParam(defaultValue = "1") Integer page,
-                       @RequestParam(defaultValue = "10") Integer pageSize,
+    public Result page(Integer page,
+                       Integer pageSize,
                        String name, String id) {
         LambdaQueryWrapper<Standard> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper.like(name != null, Standard::getMinimumPaymentStandard, name);

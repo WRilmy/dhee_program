@@ -20,8 +20,8 @@ public class ProjectController {
     @Autowired
     private ProjectService projectService;
     @GetMapping
-    public Result page(@RequestParam(defaultValue = "1") Integer page,
-                       @RequestParam(defaultValue = "10") Integer pageSize,
+    public Result page(Integer page,
+                        Integer pageSize,
                        String name, String id) {
         LambdaQueryWrapper<Project> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper.like(name != null, Project::getDiaName, name);

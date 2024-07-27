@@ -20,16 +20,15 @@ public class MedicineController {
     @Autowired
     private MedicineService medicineService;
     @GetMapping
-    public Result page(@RequestParam Integer page,
-                       @RequestParam Integer pageSize,
+    public Result page(Integer page, Integer pageSize,
                        String name, String id) {
         LambdaQueryWrapper<Medicine> queryWrapper = new LambdaQueryWrapper<>();
-        queryWrapper.like(name != null, Medicine::getMedName, name);
-        queryWrapper.like(id != null, Medicine::getMedId, id);
+        queryWrapper.like(name != null, Medicine::getMedName, name)
+                    .like(id != null, Medicine::getMedId, id);
         Page<Medicine> pageInfo = new Page<>(page, pageSize);
         Page<Medicine> result = medicineService.page(pageInfo, queryWrapper);
         PageBean pageBean = new PageBean(result.getTotal(), result.getRecords());
-        log.info("查询药品");
+        log.info("查询药品，{},{}, {}",pageBean.getTotal(), pageInfo.getTotal(), pageInfo);
         return Result.success(pageBean);
     }
 //    @GetMapping

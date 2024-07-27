@@ -22,8 +22,8 @@ public class InsititutionController {
     private InsititutionService insititutionService;
 
     @GetMapping
-    public Result page(@RequestParam(defaultValue = "1") Integer page,
-                       @RequestParam(defaultValue = "10") Integer pageSize,
+    public Result page(Integer page,
+                       Integer pageSize,
                        String name, String id) {
         LambdaQueryWrapper<Insititution> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper.like(name != null, Insititution::getInsName, name);

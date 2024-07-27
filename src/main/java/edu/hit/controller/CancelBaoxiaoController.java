@@ -20,8 +20,8 @@ public class CancelBaoxiaoController {
     private VisitInformationService visitInformationService;
 
     @GetMapping
-    public Result page(@RequestParam(defaultValue = "1")Integer page,
-                       @RequestParam(defaultValue = "10")Integer pageSize,
+    public Result page(Integer page,
+                       Integer pageSize,
                        String number){
         LambdaQueryWrapper<VisitInformation> queryWrapper= new LambdaQueryWrapper<>();
         queryWrapper.like(number!=null,VisitInformation::getHospitalizationNumber,number);

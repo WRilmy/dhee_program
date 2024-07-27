@@ -22,8 +22,8 @@ public class DiseaseController {
     @Autowired
     private DiseaseService diseaseService;
     @GetMapping
-    public Result page(@RequestParam(defaultValue = "1") Integer page,
-                       @RequestParam(defaultValue = "10") Integer pageSize,
+    public Result page(Integer page,
+                        Integer pageSize,
                        String name, String id) {
         LambdaQueryWrapper<Disease> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper.like(name != null, Disease::getDiseaseName, name);

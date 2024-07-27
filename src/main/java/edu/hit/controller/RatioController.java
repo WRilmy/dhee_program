@@ -20,8 +20,8 @@ public class RatioController {
     @Autowired
     private RatioService ratioService;
     @GetMapping
-    public Result page(@RequestParam(defaultValue = "1") Integer page,
-                       @RequestParam(defaultValue = "10") Integer pageSize,
+    public Result page(Integer page,
+                      Integer pageSize,
                        String name, String id) {
         LambdaQueryWrapper<Ratio> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper.like(name != null, Ratio::getReimbursementProportion, name);

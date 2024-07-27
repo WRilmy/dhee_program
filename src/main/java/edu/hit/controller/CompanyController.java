@@ -26,8 +26,8 @@ public class CompanyController {
     }
     //查询
     @GetMapping
-    public Result page(@RequestParam(defaultValue = "1") Integer page,
-                       @RequestParam(defaultValue = "10") Integer pageSize,
+    public Result page(Integer page,
+                        Integer pageSize,
                        String name, String id) {
         LambdaQueryWrapper<Company> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper.like(name != null, Company::getCompanyName, name);
